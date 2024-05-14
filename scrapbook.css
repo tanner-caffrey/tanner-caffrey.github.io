@@ -8,6 +8,11 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  color: rgb(19, 18, 18);
+  text-align: center;
+}
+
 p {
   font-family: verdana;
   font-size: 20px;
@@ -17,13 +22,15 @@ p {
 h3 {
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   color: rgb(19, 18, 18);
-  font-size: 25pt;
-  margin-bottom: 0pt;
+  font-size: 1vw;
+  /* margin-bottom: 0pt;
   margin-top: 0pt;
-  padding-top: 15pt;
-  padding-bottom: 40pt;
+  padding-top: 15pt; */
+  /* padding-bottom: 40pt; */
   background-color: #fff4e7;
   text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .center {
@@ -33,10 +40,18 @@ h3 {
   padding-left: 0%;
 }
 
+img {
+    height: 320pt;
+    width: 320pt;
+}
+
 .scrapbookPhoto {
   display: inline-block;
-  border: 5px solid #fff4e7;
+  border: 20px solid #fff4e7;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
+  max-width: min-content;
+  background-color: #fff4e7;
+  aspect-ratio: 35/42;
 }
 span.purple {
   color: rgb(162, 0, 255)

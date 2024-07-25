@@ -1,6 +1,6 @@
 async function fetchPhotoUrls() {
     try {
-        const response = await fetch('http://api.gwynnie.gay:443/photos', {
+        const response = await fetch('https://api.gwynnie.gay/photos', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

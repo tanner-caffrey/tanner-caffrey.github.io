@@ -16,10 +16,10 @@ async function fetchPhotos() {
 }
 
 async function generatePhotoElements() {
-    const photos = await fetchPhotos();
+    const photosObj = await fetchPhotos();
     const container = document.getElementById('photoContainer');
 
-    photos.photos.forEach(photo => {
+    photosObj.photos.forEach(photo => {
         const photoDiv = document.createElement('div');
         photoDiv.id = photo.filename.replace(/\.[^/.]+$/, ""); // Removing the file extension for the id
         photoDiv.className = 'scrapbookPhoto';

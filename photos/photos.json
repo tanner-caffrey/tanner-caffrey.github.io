@@ -1,0 +1,17 @@
+{
+    "directory": "/photos",
+    "photos": [
+        {
+            "name": "excuseme.jpg",
+            "description": "excuse me miss"
+        },
+        {
+            "name": "gwynnie.jpg",
+            "description": "she will GET you"
+        },
+        {
+            "name": "gwynnieOUT.jpg",
+            "description": "she's OUT"
+        }
+    ]
+}

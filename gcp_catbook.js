@@ -1,22 +1,31 @@
-async function fetchPhotos() {
-    fetch('https://gwynnie.gay/photos/photos.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data); // The parsed JSON data
-      // Now you can use `data` to populate your site content
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
-    });
+async function fetchPhotoUrls() {
+    try {
+        const response = await fetch('https://api.gwynnie.gay/photos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Assuming the response has the structure { photos: [ { baseUrl: 'url', filename: 'name' }, ... ] }
+        return data.photos.map(photo => ({
+            url: photo.baseUrl,
+            filename: photo.filename
+        }));
+    } catch (error) {
+        console.error('Failed to fetch photo URLs:', error);
+        return [];
+    }
 }
 
 async function generatePhotoElements() {
-    const photos = fetchPhotos();
+    const photos = await fetchPhotoUrls();
     const container = document.getElementById('photoContainer');
 
     photos.forEach(photo => {
@@ -25,16 +34,22 @@ async function generatePhotoElements() {
         photoDiv.className = 'scrapbookPhoto';
         
         const imgElement = document.createElement('img');
-        imgElement.src = `photos/${photo.name}`;
+        imgElement.src = `${photo.url}`;
+        // imgElement.alt = `Gwynnie, a dilute calico cat, ${photo.filename}`;
 
         const h3Element = document.createElement('h3');
-        h3Element.textContent=`${photo.description}`
+        // h3Element.innerText = `she's ${photo.filename.split('.')[0].toUpperCase()}`;
 
         photoDiv.toggleAttribute('can-move');
 
         photoDiv.appendChild(imgElement);
         photoDiv.appendChild(h3Element);
+        // console.log(photoDiv.outerHTML)
+        // console.log(photoDiv.outerHTML.replace('=""', ''))
+        // photoDiv.outerHTML = photoDiv.outerHTML.replace('can-move=""', '')
+        // console.log(photoDiv.outerHTML)
         container.appendChild(photoDiv);
+        // container.innerHTML = container.innerHTML.replace('can-move="">', 'can-move>')
     });
     return Promise.resolve();
 }

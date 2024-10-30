@@ -16,7 +16,7 @@ async function fetchPhotos() {
 }
 
 async function generatePhotoElements() {
-    const photos = fetchPhotos();
+    const photos = await fetchPhotos();
     const container = document.getElementById('photoContainer');
 
     photos.photos.forEach(photo => {

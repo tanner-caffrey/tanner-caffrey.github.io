@@ -43,6 +43,7 @@ h3 {
 img {
     height: 320pt;
     width: 320pt;
+    object-fit: cover;
 }
 
 .scrapbookPhoto {

@@ -1,2 +1,2 @@
 # tanner-caffrey.github.io
-site!!!!1
+my own little personal website. i like to keep it simple \(:

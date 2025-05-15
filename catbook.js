@@ -1,5 +1,5 @@
 async function fetchPhotos() {
-  return fetch('https://api.gwynnie.gay/photos/photos.json')
+  return fetch('https://api.gwynnie.gay/v2/photos')
       .then(response => {
           if (!response.ok) {
               throw new Error('Network response was not ok ' + response.statusText);
@@ -19,13 +19,13 @@ function generatePhotoElements() {
         console.log("Fetched photos object in generatePhotoElements:", photos);
         const container = document.getElementById('photoContainer');
     
-        photos.photos.forEach(photo => {
+        photos.forEach(photo => {
             const photoDiv = document.createElement('div');
             photoDiv.id = photo.title; // Removing the file extension for the id
             photoDiv.className = 'scrapbookPhoto';
             
             const imgElement = document.createElement('img');
-            imgElement.src = `https://api.gwynnie.gay/photos/${photo.filename}`;
+            imgElement.src = `https://api.gwynnie.gay/v2/photos/${photo.fileName}`;
     
             const h3Element = document.createElement('h2');
             h3Element.textContent=`${photo.description}`
@@ -58,6 +58,39 @@ async function main() {
     try {
         const module = await import('https://unpkg.com/playhtml@latest/dist/init.es.js'); // Replace with the actual URL of the external module
         console.log('Photos have been generated and external module loaded.', module);
+        const movableElement = document.querySelector("[can-move]");
+
+        if (movableElement) {
+            // Attach an event listener for the `dragend` event
+            movableElement.addEventListener("dragend", (e) => {
+            // Get the element's current position
+            const rect = movableElement.getBoundingClientRect();
+
+            // Get the viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Calculate new position to ensure the element is within bounds
+            let newX = rect.left;
+            let newY = rect.top;
+
+            if (rect.left < 0) {
+                newX = 0;
+            }
+            if (rect.top < 0) {
+                newY = 0;
+            }
+            if (rect.right > viewportWidth) {
+                newX = viewportWidth - rect.width;
+            }
+            if (rect.bottom > viewportHeight) {
+                newY = viewportHeight - rect.height;
+            }
+
+            // Apply the new position using transform
+            movableElement.style.transform = `translate(${newX}px, ${newY}px)`;
+            });
+        }
         // Use the module's exports as needed
     } catch (error) {
         console.error('Failed to load external module:', error);
@@ -65,4 +98,3 @@ async function main() {
 }
 
 document.addEventListener('DOMContentLoaded', main);
-

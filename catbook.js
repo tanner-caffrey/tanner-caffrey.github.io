@@ -56,7 +56,7 @@ function loadExternalScript(url) {
 async function main() {
     generatePhotoElements();
     try {
-        const module = await import('https://unpkg.com/playhtml@latest/dist/init.es.js'); // Replace with the actual URL of the external module
+        const module = await import('https://unpkg.com/playhtml@latest/dist/init.es.js');
         console.log('Photos have been generated and external module loaded.', module);
         const movableElement = document.querySelector("[can-move]");
 
@@ -91,7 +91,6 @@ async function main() {
             movableElement.style.transform = `translate(${newX}px, ${newY}px)`;
             });
         }
-        // Use the module's exports as needed
     } catch (error) {
         console.error('Failed to load external module:', error);
     }
